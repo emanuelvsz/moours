@@ -5,11 +5,12 @@ import { useState } from "react";
 import type { Project } from "../../../../core/domain/project";
 import type { WorkSession } from "../../../../core/domain/work-session";
 import Badge from "../../components/badge";
+import type { NewSessionValues } from "../../../../App";
 
 const LogsView: React.FC<{
   sessions: WorkSession[];
   projects: Project[];
-  onAddSession: (v: any) => void;
+  onAddSession: (values: NewSessionValues) => void;
   userRole: RoleCode;
 }> = ({ sessions, projects, onAddSession, userRole }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);

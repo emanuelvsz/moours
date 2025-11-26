@@ -1,5 +1,5 @@
-import { Badge } from "lucide-react";
 import type { Project } from "../../../../core/domain/project";
+import Badge from "../../components/badge";
 
 const ProjectsView: React.FC<{ projects: Project[] }> = ({ projects }) => (
   <div className="p-8 space-y-6">

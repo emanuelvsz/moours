@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Menu } from "lucide-react";
+import { useState } from "react";
 import { RoleCode } from "./core/domain/role";
 import type { Project } from "./core/domain/project";
 import type { UserProfile } from "./core/domain/user-profile";
@@ -15,40 +14,9 @@ import DashboardView from "./apps/web/views/dashboard";
 import Sidebar from "./apps/web/components/side-bar";
 import LogsView from "./apps/web/views/log-list";
 import ProfileView from "./apps/web/views/profile";
+import Header from "./apps/web/components/header";
 
-const Header: React.FC<{ activeTab: string; onMenuClick: () => void }> = ({
-  activeTab,
-  onMenuClick,
-}) => {
-  const titles: Record<string, string> = {
-    DASHBOARD: "Visão Geral",
-    LOGS: "Minhas Horas",
-    PROJECTS: "Gestão de Projetos",
-    PROFILE: "Meu Perfil",
-  };
-
-  return (
-    <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200 px-6 py-4 flex justify-between items-center sticky top-0 z-10 transition-all">
-      <div className="flex items-center gap-4">
-        <button
-          onClick={onMenuClick}
-          className="md:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg"
-        >
-          <Menu size={24} />
-        </button>
-        <h1 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight animate-in fade-in">
-          {titles[activeTab] || "Moours"}
-        </h1>
-      </div>
-      <div className="flex items-center gap-3">
-        <span className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100/50">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          v2.4.0
-        </span>
-      </div>
-    </header>
-  );
-};
+export type NewSessionValues = Omit<WorkSession, "id" | "calculatedAmount">;
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("DASHBOARD");
@@ -57,14 +25,16 @@ export default function App() {
   const [projects] = useState<Project[]>(INITIAL_PROJECTS);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const handleAddSession = (values: any) => {
+  const handleAddSession = (values: NewSessionValues) => {
     const project = projects.find((p) => p.id === values.projectId);
     if (!project) return;
+
     const metrics = DomainService.calculateSessionMetrics(
       values.startTime,
       values.endTime,
       project.hourlyRate
     );
+
     setSessions([
       {
         id: DomainService.generateId(),

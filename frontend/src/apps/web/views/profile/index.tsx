@@ -1,5 +1,4 @@
 import {
-  Badge,
   Banknote,
   Briefcase,
   Calendar,
@@ -12,6 +11,7 @@ import DetailCard from "../../components/detail-card";
 import { DomainService } from "../../../../core/services/domain";
 import type { UserProfile } from "../../../../core/domain/user-profile";
 import { RoleCode } from "../../../../core/domain/role";
+import Badge from "../../components/badge";
 
 const ProfileView: React.FC<{ user: UserProfile }> = ({ user }) => (
   <div className="p-8 space-y-8">
