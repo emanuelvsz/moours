@@ -15,7 +15,7 @@ export const DomainService = {
       year: "numeric",
     });
   },
-  calculateSessionMetrics: (start: string, end: string, hourlyRate: number) => {
+  calculateWorkSession: (start: string, end: string, hourlyRate: number) => {
     const [startH, startM] = start.split(":").map(Number);
     const [endH, endM] = end.split(":").map(Number);
 

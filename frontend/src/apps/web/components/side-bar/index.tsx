@@ -13,12 +13,12 @@ import type { UserProfile } from "../../../../core/domain/user-profile";
 
 const Sidebar: React.FC<{
   activeTab: string;
-  setActiveTab: (t: string) => void;
+  onActiveTab: (tab: string) => void;
   user: UserProfile;
   setUser: (u: UserProfile) => void;
   isOpen: boolean;
   toggle: () => void;
-}> = ({ activeTab, setActiveTab, user, setUser, isOpen, toggle }) => {
+}> = ({ activeTab, onActiveTab, user, setUser, isOpen, toggle }) => {
   const items = [
     {
       id: "DASHBOARD",
@@ -62,7 +62,7 @@ const Sidebar: React.FC<{
               <button
                 key={item.id}
                 onClick={() => {
-                  setActiveTab(item.id);
+                  onActiveTab(item.id);
                   toggle();
                 }}
                 className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-300 ${
