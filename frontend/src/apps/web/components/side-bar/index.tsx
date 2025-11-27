@@ -42,17 +42,17 @@ const Sidebar = ({
   const items = [
     {
       id: "DASHBOARD",
-      label: "Visão Geral",
+      label: "Dashboard",
       icon: <LayoutDashboard size={20} />,
     },
-    { id: "LOGS", label: "Registros", icon: <Calendar size={20} /> },
+    { id: "SESSIONS", label: "My Sessions", icon: <Calendar size={20} /> },
     {
       id: "PROJECTS",
-      label: "Projetos",
+      label: "Projects",
       icon: <Briefcase size={20} />,
       roleRequired: RoleCode.CHIEF,
     },
-    { id: "PROFILE", label: "Perfil", icon: <User size={20} /> },
+    { id: "PROFILE", label: "My Profile", icon: <User size={20} /> },
   ];
 
   return (
@@ -121,8 +121,8 @@ const Sidebar = ({
             className="w-full text-xs text-slate-400 hover:text-white bg-slate-800 p-3 rounded-xl flex justify-between border border-slate-700"
           >
             <span>
-              Alternar (
-              {user.role.code === RoleCode.FREELANCER ? "Dev" : "Chefe"})
+              Switch ({user.role.code === RoleCode.FREELANCER ? "Dev" : "Chief"}
+              )
             </span>
             <Settings size={14} />
           </button>

@@ -32,13 +32,13 @@ export const CreateSessionForm = ({
         <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
           <Clock size={16} />
         </span>
-        Novo Registro
+        New Record
       </h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <div className="lg:col-span-2">
           <label className="block text-xs font-bold text-slate-400 uppercase mb-2">
-            Projeto
+            Project
           </label>
           <select
             className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-emerald-500 focus:bg-white"
@@ -56,7 +56,7 @@ export const CreateSessionForm = ({
 
         <div>
           <label className="block text-xs font-bold text-slate-400 uppercase mb-2">
-            Data
+            Date
           </label>
           <input
             type="date"
@@ -69,7 +69,7 @@ export const CreateSessionForm = ({
         <div className="grid grid-cols-2 gap-2">
           <div>
             <label className="block text-xs font-bold text-slate-400 uppercase mb-2">
-              Início
+              Start
             </label>
             <input
               type="time"
@@ -80,7 +80,7 @@ export const CreateSessionForm = ({
           </div>
           <div>
             <label className="block text-xs font-bold text-slate-400 uppercase mb-2">
-              Fim
+              End
             </label>
             <input
               type="time"
@@ -93,11 +93,11 @@ export const CreateSessionForm = ({
 
         <div className="lg:col-span-4">
           <label className="block text-xs font-bold text-slate-400 uppercase mb-2">
-            Descrição
+            Description
           </label>
           <input
             type="text"
-            placeholder="O que você fez hoje?"
+            placeholder="What did you do today?"
             className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-emerald-500"
             value={formData.description}
             onChange={(e) => onFieldChange("description", e.target.value)}
@@ -112,7 +112,7 @@ export const CreateSessionForm = ({
           className="px-8 py-3 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 font-medium shadow-md active:scale-95 transition-all"
           disabled={isPending}
         >
-          {isPending ? "Salvando..." : "Salvar Registro"}
+          {isPending ? "Saving..." : "Save Record"}
         </button>
       </div>
     </form>

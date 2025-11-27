@@ -23,7 +23,7 @@ const ViewController: React.FC<{
           projects={projects}
         />
       );
-    case "LOGS":
+    case "SESSIONS":
       return (
         <LogsView
           userRole={user.role.code}

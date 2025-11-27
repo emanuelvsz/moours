@@ -1,4 +1,5 @@
 import { Menu } from "lucide-react";
+import { titles } from "../../../../core/types/header/titles";
 
 interface Props {
   activeTab: string;
@@ -6,13 +7,6 @@ interface Props {
 }
 
 const Header = ({ activeTab, onMenuClick }: Props) => {
-  const titles: Record<string, string> = {
-    DASHBOARD: "Visão Geral",
-    LOGS: "Minhas Horas",
-    PROJECTS: "Gestão de Projetos",
-    PROFILE: "Meu Perfil",
-  };
-
   return (
     <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200 px-6 py-4 flex justify-between items-center sticky top-0 z-10 transition-all">
       <div className="flex items-center gap-4">

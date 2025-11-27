@@ -50,12 +50,12 @@ const ProfileView = ({ user }: Props) => (
       <DetailCard icon={<Mail size={20} />} title="Email" value={user.email} />
       <DetailCard
         icon={<Phone size={20} />}
-        title="Telefone"
+        title="Telephone"
         value={user.phone}
       />
       <DetailCard
         icon={<Calendar size={20} />}
-        title="Nascimento"
+        title="Birth Date"
         value={DomainService.formatDate(user.birthDate)}
       />
       {user.taxId && (
@@ -69,28 +69,26 @@ const ProfileView = ({ user }: Props) => (
 
     {user.bankDetails && (
       <>
-        <h3 className="text-xl font-bold text-slate-800 mt-4">
-          Dados Bancários
-        </h3>
+        <h3 className="text-xl font-bold text-slate-800 mt-4">Bank Details</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <DetailCard
             icon={<Banknote size={20} />}
-            title="Banco"
+            title="Bank"
             value={user.bankDetails.bankName}
           />
           <DetailCard
             icon={<Banknote size={20} />}
-            title="Conta"
+            title="Account"
             value={user.bankDetails.accountNumber}
           />
           <DetailCard
             icon={<MapPin size={20} />}
-            title="Agência"
+            title="Agency"
             value={user.bankDetails.branchCode}
           />
           <DetailCard
             icon={<TrendingUp size={20} />}
-            title="Link Pagamento"
+            title="Payment Link"
             value={user.bankDetails.paymentLink}
           />
         </div>

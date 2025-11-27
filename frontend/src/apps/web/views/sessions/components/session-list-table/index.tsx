@@ -16,19 +16,19 @@ export const SessionListTable = ({ sessions, projects }: Props) => {
           <thead className="bg-slate-100 border-b border-slate-200">
             <tr>
               <th className="p-4 text-xs font-bold text-slate-500 uppercase whitespace-nowrap">
-                Data
+                Date
               </th>
               <th className="p-4 text-xs font-bold text-slate-500 uppercase whitespace-nowrap">
-                Projeto
+                Project
               </th>
               <th className="p-4 text-xs font-bold text-slate-500 uppercase min-w-[200px]">
-                Descrição
+                Description
               </th>
               <th className="p-4 text-xs font-bold text-slate-500 uppercase text-right">
-                Duração
+                Duration
               </th>
               <th className="p-4 text-xs font-bold text-slate-500 uppercase text-right">
-                Valor
+                Value
               </th>
             </tr>
           </thead>
@@ -76,7 +76,7 @@ export const SessionListTable = ({ sessions, projects }: Props) => {
             {sessions.length === 0 && (
               <tr>
                 <td colSpan={5} className="p-8 text-center text-slate-400">
-                  Nenhum registro encontrado.
+                  No records found.
                 </td>
               </tr>
             )}

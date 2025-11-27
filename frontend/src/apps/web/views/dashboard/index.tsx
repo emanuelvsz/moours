@@ -30,23 +30,23 @@ const DashboardView = ({ role, sessions, projects }: Props) => {
     <div className="space-y-8 animate-in fade-in duration-500 p-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatCard
-          title={role === RoleCode.CHIEF ? "Custo Total" : "Faturamento Total"}
+          title={role === RoleCode.CHIEF ? "Total Cost" : "Total Revenue"}
           value={`€${totalEarnings.toFixed(2)}`}
           icon={<DollarSign size={24} />}
-          trend="+12% vs mês anterior"
+          trend="+12% vs previous month"
         />
         <StatCard
-          title="Horas Trabalhadas"
+          title="Worked Hours"
           value={`${totalHours.toFixed(1)}h`}
           icon={<Clock size={24} />}
-          trend={`${sessions.length} sessões ativas`}
+          trend={`${sessions.length} active sessions`}
           trendColor="text-blue-500"
         />
         <StatCard
-          title="Projetos Ativos"
+          title="Active Projects"
           value={projects.length}
           icon={<Briefcase size={24} />}
-          trend="Todos no prazo"
+          trend="All on time"
           trendColor="text-purple-500"
         />
       </div>
@@ -54,7 +54,7 @@ const DashboardView = ({ role, sessions, projects }: Props) => {
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
         <h2 className="text-lg font-bold mb-6 text-slate-800 flex items-center gap-2">
           <Calendar className="text-emerald-500" size={20} />
-          Atividade Recente
+          Recent Activity
         </h2>
         <div className="space-y-4">
           {sessions.slice(0, 5).map((session) => (
@@ -90,7 +90,7 @@ const DashboardView = ({ role, sessions, projects }: Props) => {
                   €{session.calculatedAmount.toFixed(2)}
                 </p>
                 <div className="flex items-center justify-end gap-1 text-xs text-emerald-600 font-medium">
-                  <CheckCircle2 size={12} /> Processado
+                  <CheckCircle2 size={12} /> Processed
                 </div>
               </div>
             </div>

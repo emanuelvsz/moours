@@ -69,11 +69,9 @@ const LogsView = ({ sessions, projects, userRole }: Props) => {
     <div className="space-y-6 p-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl border border-slate-100 shadow-sm gap-4 bg-gradient-to-r from-slate-50 to-white">
         <div className="pl-2">
-          <h2 className="text-lg font-bold text-slate-800">
-            Registros de Tempo
-          </h2>
+          <h2 className="text-lg font-bold text-slate-800">Time Records</h2>
           <p className="text-sm text-slate-500">
-            Gerencie todas as suas entradas de trabalho
+            Manage all your work entries.
           </p>
         </div>
 
@@ -83,7 +81,7 @@ const LogsView = ({ sessions, projects, userRole }: Props) => {
             className="w-full sm:w-auto bg-slate-800 hover:bg-slate-900 text-white px-5 py-2.5 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-slate-900/10 active:scale-95 font-medium border border-slate-700"
           >
             {isFormOpen ? <X size={18} /> : <Plus size={18} />}
-            {isFormOpen ? "Cancelar" : "Nova Sessão"}
+            {isFormOpen ? "Cancel" : "New Session"}
           </button>
         )}
       </div>

@@ -18,14 +18,14 @@ const ProjectsView = ({ projects, finding }: Props) => {
   return (
     <div className="p-8 space-y-6">
       <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-        <h2 className="text-2xl font-bold text-slate-800">Meus Projetos</h2>
+        <h2 className="text-2xl font-bold text-slate-800">My Projects</h2>
         <p className="text-slate-500 mb-6">
-          Projetos que você gerencia ou participa.
+          Projects that you manage or participate in.
         </p>
 
         {!projects || projects.length === 0 ? (
           <div className="p-8 text-center border-2 border-dashed border-slate-200 rounded-lg">
-            <p className="text-slate-400">Nenhum projeto encontrado.</p>
+            <p className="text-slate-400">No projects found.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -43,7 +43,7 @@ const ProjectsView = ({ projects, finding }: Props) => {
                   </Badge>
                 </div>
                 <p className="text-sm text-slate-500">
-                  Cliente: <span className="font-medium">{p.clientName}</span>
+                  Client: <span className="font-medium">{p.clientName}</span>
                 </p>
               </div>
             ))}
