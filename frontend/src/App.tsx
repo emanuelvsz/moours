@@ -2,20 +2,19 @@ import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import type { UserProfile } from "./core/domain/user-profile";
-import type { WorkSession } from "./core/domain/work-session";
-import { MOCK_FREELANCER } from "./infra/in-memory";
 
 import Sidebar from "./apps/web/components/side-bar";
 import Header from "./apps/web/components/header";
 import ViewController from "./apps/web/components/view-controller";
-
-export type NewSessionValues = Omit<WorkSession, "id" | "calculatedAmount">;
+import { createMockedFreelancerUserProfile } from "./infra/in-memory/user-profile/data";
 
 const queryClient = new QueryClient();
 
 export default function App() {
   const [activeView, setActiveTab] = useState("DASHBOARD");
-  const [currentUser, setCurrentUser] = useState<UserProfile>(MOCK_FREELANCER);
+  const [currentUser, setCurrentUser] = useState<UserProfile>(
+    createMockedFreelancerUserProfile()
+  );
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (

@@ -8,8 +8,11 @@ import {
   User,
 } from "lucide-react";
 import { RoleCode } from "../../../../core/domain/role";
-import { MOCK_CHIEF, MOCK_FREELANCER } from "../../../../infra/in-memory";
 import type { UserProfile } from "../../../../core/domain/user-profile";
+import {
+  createMockedChiefUserProfile,
+  createMockedFreelancerUserProfile,
+} from "../../../../infra/in-memory/user-profile/data";
 
 interface Props {
   activeTab: string;
@@ -30,7 +33,9 @@ const Sidebar = ({
 }: Props) => {
   const switchProfile = () => {
     const next =
-      user.role.code === RoleCode.FREELANCER ? MOCK_CHIEF : MOCK_FREELANCER;
+      user.role.code === RoleCode.FREELANCER
+        ? createMockedChiefUserProfile()
+        : createMockedFreelancerUserProfile();
     onUserChange(next);
   };
 
