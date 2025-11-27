@@ -1,9 +1,9 @@
 import { RoleCode } from "../../../../core/domain/role";
 import type { UserProfile } from "../../../../core/domain/user-profile";
 import { useGetProjects } from "../../lib/hooks/project/use-get-projects";
-import DashboardView from "../../views/dashboard";
-import LogsView from "../../views/sessions";
-import ProfileView from "../../views/profile";
+import DashboardView from "../../modules/freelancer/pages/dashboard";
+import SessionsScreen from "../../views/sessions";
+import ProfileScreen from "../../views/profile";
 import ProjectsView from "../../views/projects";
 import { useGetWorkSessions } from "../../lib/hooks/work-session/use-get-work-sessions";
 
@@ -25,7 +25,7 @@ const ViewController: React.FC<{
       );
     case "SESSIONS":
       return (
-        <LogsView
+        <SessionsScreen
           userRole={user.role.code}
           sessions={sessions}
           projects={projects}
@@ -42,7 +42,7 @@ const ViewController: React.FC<{
         />
       );
     case "PROFILE":
-      return <ProfileView user={user} />;
+      return <ProfileScreen user={user} />;
     default:
       return (
         <DashboardView

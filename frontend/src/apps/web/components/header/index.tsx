@@ -1,12 +1,13 @@
 import { Menu } from "lucide-react";
-import { titles } from "../../../../core/types/header/titles";
+import { useActiveRoute } from "../../lib/hooks/routing/use-active-route";
 
 interface Props {
-  activeTab: string;
   onMenuClick: () => void;
 }
 
-const Header = ({ activeTab, onMenuClick }: Props) => {
+const Header = ({ onMenuClick }: Props) => {
+  const activeRoute = useActiveRoute();
+
   return (
     <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200 px-6 py-4 flex justify-between items-center sticky top-0 z-10 transition-all">
       <div className="flex items-center gap-4">
@@ -17,7 +18,7 @@ const Header = ({ activeTab, onMenuClick }: Props) => {
           <Menu size={24} />
         </button>
         <h1 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight animate-in fade-in">
-          {titles[activeTab] || "Moours"}
+          {activeRoute?.title || "Moours"}
         </h1>
       </div>
       <div className="flex items-center gap-3">

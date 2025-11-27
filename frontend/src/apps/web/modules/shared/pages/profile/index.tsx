@@ -7,18 +7,16 @@ import {
   Phone,
   TrendingUp,
 } from "lucide-react";
-import DetailCard from "../../components/detail-card";
-import { DomainService } from "../../../../core/services/domain";
-import type { UserProfile } from "../../../../core/domain/user-profile";
-import { RoleCode } from "../../../../core/domain/role";
-import Badge from "../../components/badge";
+import { createMockedFreelancerUserProfile } from "../../../../../../infra/in-memory/user-profile/data";
+import { RoleCode } from "../../../../../../core/domain/role";
+import DetailCard from "../../../../components/detail-card";
+import { DomainService } from "../../../../../../core/services/domain";
+import Badge from "../../../../components/badge";
 
-interface Props {
-  user: UserProfile;
-}
+const user = createMockedFreelancerUserProfile();
 
-const ProfileView = ({ user }: Props) => (
-  <div className="p-8 space-y-8">
+const ProfileScreen = () => (
+  <div className="space-y-4">
     <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-100">
       <div className="flex flex-col md:flex-row items-center gap-6">
         <div className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center text-3xl font-extrabold text-white shadow-xl ring-4 ring-emerald-50">
@@ -97,4 +95,6 @@ const ProfileView = ({ user }: Props) => (
   </div>
 );
 
-export default ProfileView;
+ProfileScreen.route = "/profile";
+
+export default ProfileScreen;

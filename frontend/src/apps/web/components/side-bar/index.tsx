@@ -9,55 +9,41 @@ import {
 } from "lucide-react";
 import { RoleCode } from "../../../../core/domain/role";
 import type { UserProfile } from "../../../../core/domain/user-profile";
-import {
-  createMockedChiefUserProfile,
-  createMockedFreelancerUserProfile,
-} from "../../../../infra/in-memory/user-profile/data";
+import { Link } from "react-router-dom";
 
 interface Props {
-  activeTab: string;
-  onActiveTab: (tab: string) => void;
   user: UserProfile;
-  onUserChange: (u: UserProfile) => void;
   isOpen: boolean;
   onToggle: () => void;
 }
 
-const Sidebar = ({
-  activeTab,
-  onActiveTab,
-  user,
-  onUserChange,
-  isOpen,
-  onToggle,
-}: Props) => {
-  const switchProfile = () => {
-    const next =
-      user.role.code === RoleCode.FREELANCER
-        ? createMockedChiefUserProfile()
-        : createMockedFreelancerUserProfile();
-    onUserChange(next);
-  };
-
-  const selectTab = (id: string) => {
-    onActiveTab(id);
-    onToggle();
-  };
-
+const Sidebar = ({ user, isOpen, onToggle }: Props) => {
   const items = [
     {
       id: "DASHBOARD",
       label: "Dashboard",
       icon: <LayoutDashboard size={20} />,
+      to: "/dashboard",
     },
-    { id: "SESSIONS", label: "My Sessions", icon: <Calendar size={20} /> },
+    {
+      id: "SESSIONS",
+      label: "My Sessions",
+      icon: <Calendar size={20} />,
+      to: "/sessions",
+    },
     {
       id: "PROJECTS",
       label: "Projects",
       icon: <Briefcase size={20} />,
+      to: "/projects",
       roleRequired: RoleCode.CHIEF,
     },
-    { id: "PROFILE", label: "My Profile", icon: <User size={20} /> },
+    {
+      id: "PROFILE",
+      label: "My Profile",
+      icon: <User size={20} />,
+      to: "/profile",
+    },
   ];
 
   return (
@@ -87,21 +73,16 @@ const Sidebar = ({
               return null;
 
             return (
-              <button
+              <Link
                 key={item.id}
-                onClick={() => selectTab(item.id)}
-                className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-300 ${
-                  activeTab === item.id
-                    ? "bg-emerald-600 text-white shadow-lg shadow-emerald-900/40 translate-x-1"
-                    : "text-slate-400 hover:bg-slate-800 hover:text-white"
-                }`}
+                to={item.to}
+                onClick={onToggle}
+                className="w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-300 text-slate-400 hover:bg-slate-800 hover:text-white"
               >
                 {item.icon}
                 {item.label}
-                {activeTab === item.id && (
-                  <ChevronRight size={16} className="ml-auto opacity-70" />
-                )}
-              </button>
+                <ChevronRight size={16} className="ml-auto opacity-70" />
+              </Link>
             );
           })}
         </nav>
@@ -121,14 +102,8 @@ const Sidebar = ({
             </div>
           </div>
 
-          <button
-            onClick={switchProfile}
-            className="w-full text-xs text-slate-400 hover:text-white bg-slate-800 p-3 rounded-xl flex justify-between border border-slate-700"
-          >
-            <span>
-              Switch ({user.role.code === RoleCode.FREELANCER ? "Dev" : "Chief"}
-              )
-            </span>
+          <button className="w-full text-xs text-slate-400 hover:text-white bg-slate-800 p-3 rounded-xl flex justify-between border border-slate-700">
+            <span>Settings</span>
             <Settings size={14} />
           </button>
         </div>

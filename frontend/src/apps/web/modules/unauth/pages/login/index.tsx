@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Clock, Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-interface Props {
-  onLogin: () => void;
-}
-
-export const LoginScreen = ({ onLogin }: Props) => {
+const LoginScreen = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -16,7 +14,7 @@ export const LoginScreen = ({ onLogin }: Props) => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      onLogin();
+      navigate("/");
     }, 1000);
   };
 
@@ -109,3 +107,7 @@ export const LoginScreen = ({ onLogin }: Props) => {
     </div>
   );
 };
+
+LoginScreen.route = "/login";
+
+export default LoginScreen;

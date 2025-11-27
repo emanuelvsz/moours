@@ -15,7 +15,7 @@ interface Props {
   userRole: RoleCode;
 }
 
-const LogsView = ({ sessions, projects, userRole }: Props) => {
+const SessionsScreen = ({ sessions, projects, userRole }: Props) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -100,4 +100,4 @@ const LogsView = ({ sessions, projects, userRole }: Props) => {
   );
 };
 
-export default LogsView;
+export default SessionsScreen;
