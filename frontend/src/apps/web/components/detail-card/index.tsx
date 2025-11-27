@@ -1,8 +1,10 @@
-const DetailCard: React.FC<{
+interface Props {
   icon: React.ReactNode;
   title: string;
   value: string | React.ReactNode;
-}> = ({ icon, title, value }) => (
+}
+
+const DetailCard = ({ icon, title, value }: Props) => (
   <div className="flex items-start p-4 bg-white rounded-xl shadow-sm border border-slate-100 hover:border-emerald-200 transition-colors">
     <div className="text-emerald-500 mr-4 mt-1 flex-shrink-0">{icon}</div>
     <div>

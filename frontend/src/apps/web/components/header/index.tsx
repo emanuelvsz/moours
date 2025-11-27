@@ -1,9 +1,11 @@
 import { Menu } from "lucide-react";
 
-const Header: React.FC<{ activeTab: string; onMenuClick: () => void }> = ({
-  activeTab,
-  onMenuClick,
-}) => {
+interface Props {
+  activeTab: string;
+  onMenuClick: () => void;
+}
+
+const Header = ({ activeTab, onMenuClick }: Props) => {
   const titles: Record<string, string> = {
     DASHBOARD: "Visão Geral",
     LOGS: "Minhas Horas",

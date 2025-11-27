@@ -1,4 +1,13 @@
 import { TrendingUp } from "lucide-react";
+import type { ReactNode } from "react";
+
+interface Props {
+  title: string;
+  value: number | string;
+  icon: ReactNode;
+  trend: string;
+  trendColor?: string;
+}
 
 const StatCard = ({
   title,
@@ -6,7 +15,7 @@ const StatCard = ({
   icon,
   trend,
   trendColor = "text-emerald-500",
-}: any) => (
+}: Props) => (
   <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-300">
     <div className="flex justify-between items-start mb-4">
       <div>

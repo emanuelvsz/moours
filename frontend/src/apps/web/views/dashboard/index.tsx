@@ -1,14 +1,22 @@
-import { Briefcase, Calendar, CheckCircle2, Clock, DollarSign } from "lucide-react";
+import {
+  Briefcase,
+  Calendar,
+  CheckCircle2,
+  Clock,
+  DollarSign,
+} from "lucide-react";
 import StatCard from "../../components/stat-card";
 import { RoleCode } from "../../../../core/domain/role";
 import type { WorkSession } from "../../../../core/domain/work-session";
 import type { Project } from "../../../../core/domain/project";
 
-const DashboardView: React.FC<{
+interface Props {
   role: RoleCode;
   sessions: WorkSession[];
   projects: Project[];
-}> = ({ role, sessions, projects }) => {
+}
+
+const DashboardView = ({ role, sessions, projects }: Props) => {
   const totalEarnings = sessions.reduce(
     (acc, s) => acc + s.calculatedAmount,
     0

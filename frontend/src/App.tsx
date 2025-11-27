@@ -25,9 +25,9 @@ export default function App() {
           activeTab={activeView}
           onActiveTab={setActiveTab}
           user={currentUser}
-          setUser={setCurrentUser}
+          onUserChange={setCurrentUser}
           isOpen={isSidebarOpen}
-          toggle={() => setIsSidebarOpen(!isSidebarOpen)}
+          onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
         />
         <div className="flex flex-col flex-1 overflow-hidden">
           <Header

@@ -1,10 +1,12 @@
 import type { Project } from "../../../../core/domain/project";
 import Badge from "../../components/badge";
 
-const ProjectsView: React.FC<{
+interface Props {
   projects: Project[];
   finding: boolean;
-}> = ({ projects, finding }) => {
+}
+
+const ProjectsView = ({ projects, finding }: Props) => {
   if (finding) {
     return (
       <div className="p-8 flex justify-center items-center text-slate-500">

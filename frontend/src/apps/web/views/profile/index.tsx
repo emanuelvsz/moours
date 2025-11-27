@@ -13,7 +13,11 @@ import type { UserProfile } from "../../../../core/domain/user-profile";
 import { RoleCode } from "../../../../core/domain/role";
 import Badge from "../../components/badge";
 
-const ProfileView: React.FC<{ user: UserProfile }> = ({ user }) => (
+interface Props {
+  user: UserProfile;
+}
+
+const ProfileView = ({ user }: Props) => (
   <div className="p-8 space-y-8">
     <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-100">
       <div className="flex flex-col md:flex-row items-center gap-6">

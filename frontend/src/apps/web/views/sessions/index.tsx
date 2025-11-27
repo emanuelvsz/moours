@@ -9,11 +9,13 @@ import { useCreateWorkSession } from "../../lib/hooks/work-session/use-create-wo
 import { CreateSessionForm } from "./components/create-session-form";
 import { SessionListTable } from "./components/session-list-table";
 
-const LogsView: React.FC<{
+interface Props {
   sessions: WorkSession[];
   projects: Project[];
   userRole: RoleCode;
-}> = ({ sessions, projects, userRole }) => {
+}
+
+const LogsView = ({ sessions, projects, userRole }: Props) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const [formData, setFormData] = useState({
