@@ -12,6 +12,14 @@ class ProjectService implements ProjectUseCase {
   async list(): Promise<Project[]> {
     return this.adapter.list();
   }
+
+  async create(data: Omit<Project, "id">): Promise<void> {
+    return this.adapter.create(data);
+  }
+
+  async update(id: string, data: Partial<Omit<Project, "id">>): Promise<void> {
+    return this.adapter.update(id, data);
+  }
 }
 
 export default ProjectService;

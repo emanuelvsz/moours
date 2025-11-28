@@ -141,6 +141,6 @@ const DashboardScreen = () => {
   );
 };
 
-DashboardScreen.route = "/dashboard";
+DashboardScreen.route = "/chief/dashboard";
 
 export default DashboardScreen;
