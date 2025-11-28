@@ -1,20 +1,23 @@
-import DashboardScreen from "./pages/dashboard";
+import { Calendar, LayoutDashboard } from "lucide-react";
 import type { Route } from "../../lib/types/route";
+import DashboardScreen from "./pages/dashboard";
 import SessionsScreen from "./pages/sessions";
 
 export const getRoutes = (): Route[] => [
   {
-    key: 1,
+    key: "dashboard",
     title: "Dashboard",
     path: DashboardScreen.route,
     page: DashboardScreen,
-    hidden: true,
+    hidden: false,
+    icon: LayoutDashboard,
   },
   {
-    key: 2,
+    key: "work-sessions",
     title: "Work Sessions",
     path: SessionsScreen.route,
     page: SessionsScreen,
-    hidden: true,
+    hidden: false,
+    icon: Calendar,
   },
 ];

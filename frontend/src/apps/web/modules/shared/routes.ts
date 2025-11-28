@@ -1,12 +1,14 @@
+import { User } from "lucide-react";
 import type { Route } from "../../lib/types/route";
 import ProfileScreen from "./pages/profile";
 
 export const getRoutes = (): Route[] => [
   {
-    key: 1,
-    title: "Profile",
+    key: "profile",
+    title: "My Profile",
     path: ProfileScreen.route,
     page: ProfileScreen,
-    hidden: true,
+    hidden: false,
+    icon: User,
   },
 ];

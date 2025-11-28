@@ -2,12 +2,11 @@ import { useMemo, type PropsWithChildren } from "react";
 import { InternalRouteCTX } from "./internal-route-context";
 import { matchRoutes, useLocation } from "react-router-dom";
 import type { Route, SingleRoute } from "../types/route";
-import { createMockedFreelancerUserProfile } from "../../../../infra/in-memory/user-profile/data";
 import { getModuleRoutesByAccount } from "../../modules";
+import { useAuthenticatedAccount } from "../hooks/auth/use-get-authenticated-account";
 
 function getFlatRoutes(routes: Route[]): SingleRoute[] {
   const result: SingleRoute[] = [];
-
   routes.forEach((r) => {
     if ("children" in r && r.children) {
       result.push(...getFlatRoutes(r.children));
@@ -15,14 +14,16 @@ function getFlatRoutes(routes: Route[]): SingleRoute[] {
       result.push(r);
     }
   });
-
   return result;
 }
 
 const InternalRouteProvider = ({ children }: PropsWithChildren) => {
-  const account = createMockedFreelancerUserProfile();
-  const routes = getModuleRoutesByAccount(account);
+  const { user } = useAuthenticatedAccount();
   const location = useLocation();
+  const routes = useMemo(() => {
+    if (!user) return [];
+    return getModuleRoutesByAccount(user);
+  }, [user]);
 
   const flatRoutes = useMemo(() => getFlatRoutes(routes), [routes]);
 

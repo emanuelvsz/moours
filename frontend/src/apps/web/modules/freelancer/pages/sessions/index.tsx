@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Plus, X, Clock, History } from "lucide-react";
-import { createMockedFreelancerUserProfile } from "../../../../../../infra/in-memory/user-profile/data";
 import { useGetWorkSessions } from "../../../../lib/hooks/work-session/use-get-work-sessions";
 import { useGetProjects } from "../../../../lib/hooks/project/use-get-projects";
 import type { WorkSession } from "../../../../../../core/domain/work-session";
@@ -10,9 +9,11 @@ import { RoleCode } from "../../../../../../core/domain/role";
 import { CreateSessionForm } from "../../../../views/sessions/components/create-session-form";
 import { SessionListTable } from "../../../../views/sessions/components/session-list-table";
 import { DomainService } from "../../../../../../core/services/domain";
+import { useAuthenticatedAccount } from "../../../../lib/hooks/auth/use-get-authenticated-account";
 
 const SessionsScreen = () => {
-  const account = createMockedFreelancerUserProfile();
+  const { user: account } = useAuthenticatedAccount();
+
   const { workSessions: sessions } = useGetWorkSessions();
   const { projects } = useGetProjects();
 
@@ -31,7 +32,6 @@ const SessionsScreen = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     const project = projects.find((p) => p.id === formData.projectId);
     if (!project) return;
 
@@ -67,7 +67,7 @@ const SessionsScreen = () => {
 
   return (
     <div className="flex w-full items-start justify-center bg-slate-50">
-      <div className="w-full space-y-10 animate-in fade-in duration-500">
+      <div className="w-full space-y-4 animate-in fade-in duration-500">
         <div className="bg-white border border-slate-100 rounded-3xl shadow-xl p-8 flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center shadow-inner">
             <Clock size={28} />
@@ -80,7 +80,7 @@ const SessionsScreen = () => {
             </p>
           </div>
 
-          {account.role.code === RoleCode.FREELANCER && (
+          {account?.role.code === RoleCode.FREELANCER && (
             <button
               onClick={() => setIsFormOpen((v) => !v)}
               className="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg transition-all active:scale-95"

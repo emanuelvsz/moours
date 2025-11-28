@@ -1,21 +1,42 @@
 import { useState } from "react";
-import { Clock, Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import {
+  Clock,
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  ArrowRight,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import { useLogin } from "../../../../lib/hooks/auth/use-login";
 
 const LoginScreen = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const { login, isPending, isError, errorMessage } = useLogin();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      navigate("/");
-    }, 1000);
+
+    login(
+      { email, password },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["authenticated-account"],
+          });
+          navigate("/");
+        },
+      }
+    );
   };
 
   return (
@@ -34,6 +55,15 @@ const LoginScreen = () => {
             </p>
           </div>
 
+          {isError && (
+            <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 flex items-center gap-3 text-red-600 animate-in slide-in-from-top-2">
+              <AlertCircle size={20} className="shrink-0" />
+              <span className="text-sm font-medium">
+                {errorMessage || "Falha ao entrar. Verifique suas credenciais."}
+              </span>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-slate-600 uppercase tracking-wider ml-1">
@@ -46,10 +76,11 @@ const LoginScreen = () => {
                 <input
                   type="email"
                   required
+                  disabled={isPending}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="seu@email.com"
-                  className="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
+                  className="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all disabled:opacity-60 disabled:bg-slate-50"
                 />
               </div>
             </div>
@@ -73,15 +104,17 @@ const LoginScreen = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   required
+                  disabled={isPending}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="block w-full pl-10 pr-10 py-3 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
+                  className="block w-full pl-10 pr-10 py-3 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all disabled:opacity-60 disabled:bg-slate-50"
                 />
                 <button
                   type="button"
+                  disabled={isPending}
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 disabled:opacity-50"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
@@ -90,11 +123,13 @@ const LoginScreen = () => {
 
             <button
               type="submit"
-              disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-all disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+              disabled={isPending}
+              className="w-full flex items-center justify-center gap-2 py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-all disabled:opacity-70 disabled:cursor-not-allowed mt-2 active:scale-[0.98]"
             >
-              {isLoading ? (
-                "Entrando..."
+              {isPending ? (
+                <>
+                  <Loader2 className="animate-spin" size={18} /> Entrando...
+                </>
               ) : (
                 <>
                   Acessar Plataforma <ArrowRight size={18} />

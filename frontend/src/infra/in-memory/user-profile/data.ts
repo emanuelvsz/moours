@@ -18,6 +18,7 @@ export const createMockedFreelancerUserProfile = (): UserProfile => {
       accountType: "Corrente",
       paymentLink: "revolut.me/emanuel",
     },
+    password: "12345678",
   };
 };
 
@@ -36,5 +37,11 @@ export const createMockedChiefUserProfile = (): UserProfile => {
       accountType: "Corrente",
       paymentLink: "inter.me/rodolfo",
     },
+    password: "Test1234!",
   };
 };
+
+export const createMockedUserProfiles = (): UserProfile[] => [
+  createMockedChiefUserProfile(),
+  createMockedFreelancerUserProfile(),
+];

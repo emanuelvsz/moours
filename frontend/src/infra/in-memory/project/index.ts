@@ -3,10 +3,10 @@ import type { Project } from "../../../core/domain/project";
 import { createMockedProjects } from "./data";
 
 class ProjectInMemory implements ProjectAdapter {
-  private static agreements: Project[] = createMockedProjects();
+  private static projects: Project[] = createMockedProjects();
 
   list(): Promise<Project[]> {
-    return Promise.resolve(ProjectInMemory.agreements);
+    return Promise.resolve(ProjectInMemory.projects);
   }
 }
 
