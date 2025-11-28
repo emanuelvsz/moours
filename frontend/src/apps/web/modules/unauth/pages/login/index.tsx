@@ -29,8 +29,8 @@ const LoginScreen = () => {
     login(
       { email, password },
       {
-        onSuccess: () => {
-          queryClient.invalidateQueries({
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({
             queryKey: ["authenticated-account"],
           });
           navigate("/");
