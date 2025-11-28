@@ -56,7 +56,6 @@ const ProjectsScreen = () => {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
-      {/* Header com Botão de Criar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold text-slate-900">My Projects</h2>
@@ -73,7 +72,6 @@ const ProjectsScreen = () => {
         </button>
       </div>
 
-      {/* Lista de Projetos */}
       <div className="bg-white p-6 rounded-3xl shadow-xl border border-slate-100 min-h-[300px]">
         {!projects || projects.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 border-2 border-dashed border-slate-100 rounded-2xl bg-slate-50/50">
