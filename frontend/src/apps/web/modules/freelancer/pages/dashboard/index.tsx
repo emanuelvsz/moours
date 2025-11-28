@@ -17,14 +17,12 @@ import { DomainService } from "../../../../../../core/services/domain";
 import { RoleCode } from "../../../../../../core/domain/role";
 import { CreateSessionModal } from "./create-session-modal";
 
-
 const DashboardScreen = () => {
   const queryClient = useQueryClient();
   const { user: account } = useAuthenticatedAccount();
   const { workSessions: sessions } = useGetWorkSessions();
   const { projects } = useGetProjects();
 
-  // Hooks para criação de sessão
   const { createWorkSession, isPending } = useCreateWorkSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -70,7 +68,6 @@ const DashboardScreen = () => {
   return (
     <div className="flex w-full items-start justify-center bg-slate-50 animate-in fade-in duration-500">
       <div className="w-full bg-white rounded-3xl shadow-xl border border-slate-100 p-6 overflow-hidden">
-        {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shadow-inner">
@@ -85,20 +82,16 @@ const DashboardScreen = () => {
               </p>
             </div>
           </div>
-
-          {/* Botão de Nova Sessão (Apenas Freelancer) */}
           {account?.role.code === RoleCode.FREELANCER && (
             <button
               onClick={() => setIsModalOpen(true)}
-              className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-5 py-3 rounded-xl font-medium shadow-lg transition-all active:scale-95 whitespace-nowrap"
+              className="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg transition-all active:scale-95"
             >
               <Plus size={18} />
-              New Entry
+              New Session
             </button>
           )}
         </div>
-
-        {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200 shadow-inner">
             <div className="flex items-center gap-3 mb-2">
@@ -150,8 +143,6 @@ const DashboardScreen = () => {
           <Calendar size={20} className="text-emerald-500" />
           Recent Activity
         </h2>
-
-        {/* Lista de Atividade Recente */}
         <div className="space-y-4">
           {sessions.slice(0, 5).map((session) => (
             <div

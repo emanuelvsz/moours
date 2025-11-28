@@ -48,10 +48,10 @@ const LoginScreen = () => {
               <Clock size={32} />
             </div>
             <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-              Bem-vindo de volta!
+              Welcome back!
             </h1>
             <p className="text-slate-500 text-sm mt-2">
-              Acesse sua conta para gerenciar suas horas
+              Sign in to manage your work hours
             </p>
           </div>
 
@@ -59,7 +59,7 @@ const LoginScreen = () => {
             <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 flex items-center gap-3 text-red-600 animate-in slide-in-from-top-2">
               <AlertCircle size={20} className="shrink-0" />
               <span className="text-sm font-medium">
-                {errorMessage || "Falha ao entrar. Verifique suas credenciais."}
+                {errorMessage || "Login failed. Please check your credentials."}
               </span>
             </div>
           )}
@@ -79,7 +79,7 @@ const LoginScreen = () => {
                   disabled={isPending}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="seu@email.com"
+                  placeholder="your@email.com"
                   className="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all disabled:opacity-60 disabled:bg-slate-50"
                 />
               </div>
@@ -88,13 +88,13 @@ const LoginScreen = () => {
             <div className="space-y-1.5">
               <div className="flex justify-between items-center ml-1">
                 <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  Senha
+                  Password
                 </label>
                 <a
                   href="#"
                   className="text-xs font-medium text-emerald-600 hover:text-emerald-700"
                 >
-                  Esqueceu?
+                  Forgot?
                 </a>
               </div>
               <div className="relative">
@@ -128,11 +128,11 @@ const LoginScreen = () => {
             >
               {isPending ? (
                 <>
-                  <Loader2 className="animate-spin" size={18} /> Entrando...
+                  <Loader2 className="animate-spin" size={18} /> Signing in...
                 </>
               ) : (
                 <>
-                  Acessar Plataforma <ArrowRight size={18} />
+                  Access Platform <ArrowRight size={18} />
                 </>
               )}
             </button>

@@ -1,7 +1,7 @@
-import type { Project } from "../../../../../../core/domain/project";
-import type { WorkSession } from "../../../../../../core/domain/work-session";
-import { DomainService } from "../../../../../../core/services/domain";
-import Badge from "../../../../components/badge";
+import type { Project } from "../../../../../../../../core/domain/project";
+import type { WorkSession } from "../../../../../../../../core/domain/work-session";
+import { DomainService } from "../../../../../../../../core/services/domain";
+import Badge from "../../../../../../components/badge";
 
 interface Props {
   sessions: WorkSession[];

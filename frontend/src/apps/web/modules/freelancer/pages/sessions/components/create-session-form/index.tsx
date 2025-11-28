@@ -1,6 +1,7 @@
 import { Clock } from "lucide-react";
-import type { Project } from "../../../../../../core/domain/project";
-import type { WorkSession } from "../../../../../../core/domain/work-session";
+import type { Project } from "../../../../../../../../core/domain/project";
+import type { WorkSession } from "../../../../../../../../core/domain/work-session";
+
 
 interface Props {
   isOpen: boolean;

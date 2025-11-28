@@ -6,10 +6,10 @@ import type { WorkSession } from "../../../../../../core/domain/work-session";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCreateWorkSession } from "../../../../lib/hooks/work-session/use-create-work-session";
 import { RoleCode } from "../../../../../../core/domain/role";
-import { CreateSessionForm } from "../../../../views/sessions/components/create-session-form";
-import { SessionListTable } from "../../../../views/sessions/components/session-list-table";
 import { DomainService } from "../../../../../../core/services/domain";
 import { useAuthenticatedAccount } from "../../../../lib/hooks/auth/use-get-authenticated-account";
+import { CreateSessionForm } from "./components/create-session-form";
+import { SessionListTable } from "./components/session-list-table";
 
 const SessionsScreen = () => {
   const { user: account } = useAuthenticatedAccount();
