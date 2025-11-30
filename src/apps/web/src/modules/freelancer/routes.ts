@@ -1,7 +1,9 @@
-import { Calendar, LayoutDashboard } from "lucide-react";
-import type { Route } from "@lib/types/route";
+import { Calendar, LayoutDashboard, Briefcase } from "lucide-react";
+import type { Route } from "../../lib/types/route";
 import DashboardScreen from "./pages/dashboard";
 import SessionsScreen from "./pages/sessions";
+import ProjectsListScreen from "./pages/project-list";
+import ProjectManagementScreen from "./pages/project-management";
 
 export const getRoutes = (): Route[] => [
   {
@@ -19,5 +21,20 @@ export const getRoutes = (): Route[] => [
     page: SessionsScreen,
     hidden: false,
     icon: Calendar,
+  },
+  {
+    key: "my-projects",
+    title: "My Projects",
+    path: ProjectsListScreen.route,
+    page: ProjectsListScreen,
+    hidden: false,
+    icon: Briefcase,
+  },
+  {
+    key: "project-payment-manage",
+    title: "Project Management",
+    path: ProjectManagementScreen.route,
+    page: ProjectManagementScreen,
+    hidden: true,
   },
 ];

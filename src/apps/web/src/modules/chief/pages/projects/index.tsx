@@ -6,8 +6,10 @@ import type { Project } from "@core/domain/project";
 import { ProjectFormModal } from "./project-form-modal";
 import { useCreateProject } from "@lib/hooks/project/use-create-project";
 import { useUpdateProject } from "@lib/hooks/project/use-update-project";
+import { useNavigate } from "react-router-dom";
 
 const ProjectsScreen = () => {
+  const navigate = useNavigate();
   const { projects, finding } = useGetProjects();
   const { createProject, isPending: isCreating } = useCreateProject();
   const { updateProject, isPending: isUpdating } = useUpdateProject();
@@ -95,6 +97,7 @@ const ProjectsScreen = () => {
               <div
                 key={p.id}
                 className="group relative p-6 border border-slate-200 rounded-2xl hover:border-emerald-400 transition-all bg-slate-50 hover:bg-white hover:shadow-lg"
+                onClick={() => navigate(`/projects/${p.id}`)}
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-700 font-bold text-lg shadow-sm group-hover:scale-110 transition-transform">

@@ -7,4 +7,5 @@ export interface WorkSession {
   endTime: string; // HH:mm
   description: string;
   calculatedAmount: number;
+  paymentId?: string;
 }

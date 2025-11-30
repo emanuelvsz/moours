@@ -73,7 +73,7 @@ const normalizeDate = (dateStr: string): string => {
   return dateStr; 
 };
 
-// Soma a duração (H:MM:SS ou H:MM) ao horário de início
+
 const calculateEndTime = (start: string, duration: string): string => {
   const [startH, startM] = start.split(":").map(Number);
 

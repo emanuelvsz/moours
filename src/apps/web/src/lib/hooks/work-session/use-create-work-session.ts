@@ -4,7 +4,7 @@ import { getCreateWorkSessionOptions } from "../../options/work-session/create-w
 export const useCreateWorkSession = () => {
   const {
     mutate: createWorkSession,
-    data: created,
+    mutateAsync: createWorkSessionAsync,
     isPending,
     isSuccess,
     isError,
@@ -13,7 +13,7 @@ export const useCreateWorkSession = () => {
 
   return {
     createWorkSession,
-    created,
+    createWorkSessionAsync,
     isPending,
     isSuccess,
     isError,

@@ -9,9 +9,9 @@ import { RoleCode } from "@core/domain/role";
 import { DomainService } from "@core/services/domain";
 import { useAuthenticatedAccount } from "@lib/hooks/auth/use-get-authenticated-account";
 import { CreateSessionForm } from "./components/create-session-form";
-import { SessionListTable } from "./components/session-list-table";
 import { useCreateBulkWorkSessions } from "@web/lib/hooks/work-session/use-bulk-create-work-session";
 import { ImportSessionsModal } from "@web/components/import-work-session-modal";
+import { SessionListTable } from "@web/components/session-list-table";
 
 const SessionsScreen = () => {
   const { user: account } = useAuthenticatedAccount();

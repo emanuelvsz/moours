@@ -1,3 +1,4 @@
+import { useState, useMemo } from "react";
 import type { Project } from "@core/domain/project";
 import type { WorkSession } from "@core/domain/work-session";
 import { DomainService } from "@core/services/domain";
@@ -6,9 +7,31 @@ import Badge from "@components/badge";
 interface Props {
   sessions: WorkSession[];
   projects: Project[];
+  pageSize?: number;
 }
 
-export const SessionListTable = ({ sessions, projects }: Props) => {
+export const SessionListTable = ({
+  sessions,
+  projects,
+  pageSize = 10,
+}: Props) => {
+  const [page, setPage] = useState(1);
+
+  const sortedSessions = useMemo(() => {
+    return [...sessions].sort((a, b) => {
+      const da = new Date(a.date).getTime();
+      const db = new Date(b.date).getTime();
+      return db - da;
+    });
+  }, [sessions]);
+
+  const totalPages = Math.ceil(sortedSessions.length / pageSize);
+
+  const pageData = useMemo(() => {
+    const start = (page - 1) * pageSize;
+    return sortedSessions.slice(start, start + pageSize);
+  }, [sortedSessions, page, pageSize]);
+
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
       <div className="overflow-x-auto">
@@ -32,8 +55,9 @@ export const SessionListTable = ({ sessions, projects }: Props) => {
               </th>
             </tr>
           </thead>
+
           <tbody className="divide-y divide-slate-100">
-            {sessions.map((s) => {
+            {pageData.map((s) => {
               const project = projects.find((p) => p.id === s.projectId);
 
               return (
@@ -73,7 +97,7 @@ export const SessionListTable = ({ sessions, projects }: Props) => {
               );
             })}
 
-            {sessions.length === 0 && (
+            {sortedSessions.length === 0 && (
               <tr>
                 <td colSpan={5} className="p-8 text-center text-slate-400">
                   No records found.
@@ -83,6 +107,30 @@ export const SessionListTable = ({ sessions, projects }: Props) => {
           </tbody>
         </table>
       </div>
+
+      {sortedSessions.length > 0 && (
+        <div className="flex items-center justify-between p-4 border-t border-slate-200 bg-slate-50">
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white border border-slate-200 disabled:opacity-40 hover:bg-slate-100 transition"
+          >
+            Previous
+          </button>
+
+          <span className="text-sm text-slate-600">
+            Page <strong>{page}</strong> of <strong>{totalPages}</strong>
+          </span>
+
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white border border-slate-200 disabled:opacity-40 hover:bg-slate-100 transition"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
