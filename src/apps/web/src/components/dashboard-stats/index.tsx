@@ -33,7 +33,7 @@ export const DashboardStats = ({
         icon={Clock}
         iconColor="text-blue-600"
         title="Worked Hours"
-        value={`${totalHours}h`}
+        value={`${totalHours.toFixed(1)}h`}
         subtitle={`${sessionCount} sessions`}
       />
 

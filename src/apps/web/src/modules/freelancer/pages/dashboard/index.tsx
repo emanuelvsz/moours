@@ -37,10 +37,22 @@ const DashboardScreen = () => {
   const [periodType, setPeriodType] = useState<PeriodType>("month");
   const [currentDate, setCurrentDate] = useState(new Date());
 
+  // ⭐ Novo estado para filtrar por projeto
+  const [selectedProjectId, setSelectedProjectId] = useState<string | "all">(
+    "all"
+  );
+
+  // ⭐ Filtrando período + projeto
   const filteredSessions = useMemo(() => {
     const range = getPeriodRange(currentDate, periodType);
-    return sessions.filter((s) => isSessionInPeriod(s.date, range));
-  }, [sessions, currentDate, periodType]);
+
+    return sessions.filter((s) => {
+      const matchPeriod = isSessionInPeriod(s.date, range);
+      const matchProject =
+        selectedProjectId === "all" || s.projectId === selectedProjectId;
+      return matchPeriod && matchProject;
+    });
+  }, [sessions, currentDate, periodType, selectedProjectId]);
 
   const totalEarnings = filteredSessions.reduce(
     (acc, s) => acc + s.calculatedAmount,
@@ -100,6 +112,10 @@ const DashboardScreen = () => {
             setCurrentDate((d) => navigatePeriod(d, periodType, "next"))
           }
           onReset={() => setCurrentDate(new Date())}
+          showFilterByProject
+          projects={projects}
+          selectedProjectId={selectedProjectId}
+          onProjectChange={(id) => setSelectedProjectId(id ?? "all")}
         />
 
         <DashboardStats

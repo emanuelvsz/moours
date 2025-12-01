@@ -9,6 +9,11 @@ interface Props {
   onPrev: () => void;
   onNext: () => void;
   onReset: () => void;
+
+  showFilterByProject?: boolean;
+  projects?: { id: string; name: string }[];
+  selectedProjectId?: string | null;
+  onProjectChange?: (projectId: string | null) => void;
 }
 
 export const PeriodFilter = ({
@@ -18,6 +23,10 @@ export const PeriodFilter = ({
   onPrev,
   onNext,
   onReset,
+  showFilterByProject,
+  projects = [],
+  selectedProjectId,
+  onProjectChange,
 }: Props) => {
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between bg-slate-50 p-1.5 rounded-2xl border border-slate-200 mb-8 gap-2">
@@ -37,6 +46,30 @@ export const PeriodFilter = ({
         ))}
       </div>
       <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end px-2">
+        {showFilterByProject && (
+          <select
+            className="
+              h-10
+              px-4
+              rounded-lg
+              border border-slate-300
+              bg-white
+              text-sm text-slate-700
+              shadow-sm
+              flex items-center
+            "
+            value={selectedProjectId ?? ""}
+            onChange={(e) => onProjectChange?.(e.target.value || null)}
+          >
+            <option value="">All Projects</option>
+            {projects.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name}
+              </option>
+            ))}
+          </select>
+        )}
+
         <button
           onClick={onPrev}
           className="p-1.5 hover:bg-white hover:shadow-sm rounded-lg text-slate-500 transition-all"

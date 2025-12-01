@@ -10,13 +10,12 @@ import { useCreatePayment } from "@web/lib/hooks/payment/use-create-payment";
 import { useProjectUnpaidMonths } from "@web/lib/hooks/project/use-unpaid-months";
 
 import type { WorkSession } from "@core/domain/work-session";
-import type { Project } from "@core/domain/project";
 import { PaymentStatus } from "@core/domain/payment";
 import { DomainService } from "@core/services/domain";
 
 import { CreateSessionModal } from "@components/create-session-modal";
 import ProjectHeader from "./components/project-header";
-import ProjectTabs from "./components/tabs";
+import ProjectTabs from "./components/project-tabs";
 import SessionsPanel from "./components/sessions-panel";
 import PaymentsPanel from "./components/payments-panel";
 import { DashboardStats } from "@web/components/dashboard-stats";
@@ -32,9 +31,11 @@ const ProjectManagementScreen = () => {
   const { projects } = useGetProjects();
   const { workSessions } = useGetWorkSessions();
 
-  const project = projects.find((p) => p.id === projectId) as
-    | Project
-    | undefined;
+  const { unpaidMonths, isLoading: isLoadingPayments } =
+    useProjectUnpaidMonths(projectId);
+  const { createPayment, isPending: isPaying } = useCreatePayment();
+
+  const project = projects.find((p) => p.id === projectId)
 
   const [activeTab, setActiveTab] = useState<"sessions" | "payments">(
     "sessions"
@@ -140,10 +141,6 @@ const ProjectManagementScreen = () => {
       alert("Error creating session");
     }
   };
-
-  const { unpaidMonths, isLoading: isLoadingPayments } =
-    useProjectUnpaidMonths(projectId);
-  const { createPayment, isPending: isPaying } = useCreatePayment();
 
   const handleRegisterPayment = (group: any) => {
     if (!user || !project) return;
