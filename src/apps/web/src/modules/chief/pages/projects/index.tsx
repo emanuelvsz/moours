@@ -22,27 +22,28 @@ const ProjectsScreen = () => {
     setIsModalOpen(true);
   };
 
-  const handleOpenEdit = (project: Project) => {
+  const handleOpenEdit = (e: React.MouseEvent, project: Project) => {
+    e.stopPropagation();
     setEditingProject(project);
     setIsModalOpen(true);
   };
 
-  const handleSubmit = (data: Project | Omit<Project, "id">) => {
+  const handleSubmit = (data: any) => {
     if (editingProject) {
-      const { id, ...rest } = data as Project;
-
+      const { id, ...rest } = data;
       updateProject(
-        {
-          id,
-          data: rest,
-        },
-        {
-          onSuccess: () => setIsModalOpen(false),
-        }
+        { id, data: rest },
+        { onSuccess: () => setIsModalOpen(false) }
       );
     } else {
-      createProject(data as Omit<Project, "id">, {
-        onSuccess: () => setIsModalOpen(false),
+      const newProject = {
+        ...data,
+      };
+
+      createProject(newProject, {
+        onSuccess: () => {
+          setIsModalOpen(false);
+        },
       });
     }
   };
@@ -57,7 +58,7 @@ const ProjectsScreen = () => {
   }
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-4 animate-in fade-in duration-500">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold text-slate-900">My Projects</h2>
@@ -73,7 +74,6 @@ const ProjectsScreen = () => {
           New Project
         </button>
       </div>
-
       <div className="bg-white p-6 rounded-3xl shadow-xl border border-slate-100 min-h-[300px]">
         {!projects || projects.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 border-2 border-dashed border-slate-100 rounded-2xl bg-slate-50/50">
@@ -81,12 +81,9 @@ const ProjectsScreen = () => {
               <FolderOpen size={32} />
             </div>
             <p className="text-slate-500 font-medium">No projects found.</p>
-            <p className="text-slate-400 text-sm mb-6">
-              Start by creating your first project.
-            </p>
             <button
               onClick={handleOpenCreate}
-              className="text-emerald-600 font-bold text-sm hover:underline"
+              className="text-emerald-600 font-bold text-sm hover:underline mt-2"
             >
               Create Project Now
             </button>
@@ -96,29 +93,25 @@ const ProjectsScreen = () => {
             {projects.map((p) => (
               <div
                 key={p.id}
-                className="group relative p-6 border border-slate-200 rounded-2xl hover:border-emerald-400 transition-all bg-slate-50 hover:bg-white hover:shadow-lg"
+                className="group cursor-pointer relative p-6 border border-slate-200 rounded-2xl hover:border-emerald-400 transition-all bg-slate-50 hover:bg-white hover:shadow-lg"
                 onClick={() => navigate(`/projects/${p.id}`)}
               >
                 <div className="flex justify-between items-start mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-700 font-bold text-lg shadow-sm group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-700 font-bold text-lg shadow-sm">
                     {p.name.charAt(0)}
                   </div>
                   <button
-                    onClick={() => handleOpenEdit(p)}
+                    onClick={(e) => handleOpenEdit(e, p)} // Passando o evento para o stopPropagation
                     className="p-2 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-colors opacity-0 group-hover:opacity-100"
-                    title="Edit Project"
                   >
                     <Pencil size={18} />
                   </button>
                 </div>
 
-                <h3
-                  className="font-bold text-lg text-slate-800 mb-1 truncate"
-                  title={p.name}
-                >
+                <h3 className="font-bold text-lg text-slate-800 mb-1 truncate">
                   {p.name}
                 </h3>
-                <p className="text-sm text-slate-500 mb-4 truncate">
+                <p className="text-sm text-slate-500 mb-4">
                   Client:{" "}
                   <span className="font-medium text-slate-700">
                     {p.clientName}
@@ -126,11 +119,11 @@ const ProjectsScreen = () => {
                 </p>
 
                 <div className="pt-4 border-t border-slate-200/60 flex items-center justify-between">
-                  <Badge color="purple">
+                  <Badge color="emerald">
                     {p.currency} {p.hourlyRate}/h
                   </Badge>
-                  <span className="text-xs text-slate-400 font-medium">
-                    Active
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
+                    Active Project
                   </span>
                 </div>
               </div>
@@ -138,7 +131,6 @@ const ProjectsScreen = () => {
           </div>
         )}
       </div>
-
       <ProjectFormModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
